@@ -43,43 +43,31 @@ This procedure requires:
 
 ### Procedure
 
-1. On a command line or command prompt, install the [Vue CLI Tool](https://cli.vuejs.org/#getting-started) package.
+1. Create a new Vue project named `tinymce-vue-demo` using the [Create Vue Tool](https://github.com/vuejs/create-vue).
 
-    ```sh
-    $ npm install -g @vue/cli
-    ```
-
-2. Create a new Vue.js project named `tinymce-vue-demo`.
-
-    * To use the interactive prompt, run:
+    * From a command line or command prompt create a Vue 3 project:
 
       ```sh
-      $ vue create tinymce-vue-demo
+      $ npm create vue@3
       ```
 
-    * To skip the interactive prompt:
+    * If you need to support IE11, you can create a Vue.js project instead:
 
-      * For Vue.js 3.x users:
+      ```sh
+      $ npm create vue@2
+      ```
 
-        ```sh
-        $ vue create --inlinePreset '{ "vueVersion": "3", "plugins": {} }' tinymce-vue-demo
-        ```
+    * Follow the prompts and type `tinymce-vue-demo`  as the project name.
 
-      * For Vue.js 2.x users:
-
-        ```sh
-        $ vue create --inlinePreset '{ "vueVersion": "2", "plugins": {} }' tinymce-vue-demo
-        ```
-
-3. Change into the newly created directory.
+2. Change into the newly created directory.
 
     ```sh
     $ cd tinymce-vue-demo
     ```
 
-4. Install the `tinymce-vue` package and save it to your `package.json` with `--save`.
+3. Install the `tinymce-vue` package and save it to your `package.json` with `--save`.
 
-    * For Vue.js 3.x users:
+    * For Vue 3 users:
 
       ```sh
       $ npm install --save "@tinymce/tinymce-vue@^4"
@@ -91,19 +79,22 @@ This procedure requires:
       $ npm install --save "@tinymce/tinymce-vue@^3"
       ```
 
-5. Using a text editor, open `/path/to/tinymce-vue-demo/src/App.vue`.
+4. Using a text editor, open `/path/to/tinymce-vue-demo/src/App.vue`.
 
-    1. Add a {{site.productname}} configuration to the `<template>` using the `<editor>` tag.
+    1. Add a {{site.productname}} configuration to the `<template>` using the `<Editor>` tag.
     2. Add `import Editor from '@tinymce/tinymce-vue'` to the start of the `<script>`.
-    3. Add `editor: Editor` to the `default {components}`.
 
     For example:
 
     ```jsx
+    <script setup>
+    import Editor from '@tinymce/tinymce-vue'
+    </script>
+
     <template>
-      <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png">
-        <editor
+      <main id="sample">
+        <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+        <Editor
           api-key="no-api-key"
           :init="{% raw %}{{% endraw %}
             height: 500,
@@ -119,23 +110,28 @@ This procedure requires:
               bullist numlist outdent indent | removeformat | help'
           {% raw %}}{% endraw %}"
         />
-      </div>
+      </main>
     </template>
 
-    <script>
-    import Editor from '@tinymce/tinymce-vue'
+    <style scoped>
+    .logo {
+      display: block;
+      margin: 0 auto 2rem;
+    }
 
-    export default {
-      name: 'app',
-      components: {
-        'editor': Editor
+    @media (min-width: 1024px) {
+      #sample {
+        display: flex;
+        flex-direction: column;
+        place-items: center;
+        width: 1000px;
       }
     }
-    </script>
+    </style>
     ```
 
     This {{site.productname}} editor configuration should replicate the example on the [Basic example page]({{site.baseurl}}/demo/basic-example/).
-6. Provide access to {{site.productname}} using either {{site.cloudname}} or by self-hosting {{site.productname}}.
+5. Provide access to {{site.productname}} using either {{site.cloudname}} or by self-hosting {{site.productname}}.
 
     * **{{site.cloudname}}**
 
@@ -167,11 +163,11 @@ This procedure requires:
 
           To bundle {{site.productname}} using a module loader (such as Webpack and Browserify), see: [Usage with module loaders]({{site.baseurl}}/advanced/usage-with-module-loaders/).
 
-7. Test the application using the Node.js development server.
+6. Test the application using the Node.js development server.
     * To start the development server, navigate to the `tinymce-vue-demo` directory and run:
 
         ```sh
-        $ npm run serve
+        $ npm run dev
         ```
 
     * To stop the development server, select on the command line or command prompt and press _Ctrl+C_.
